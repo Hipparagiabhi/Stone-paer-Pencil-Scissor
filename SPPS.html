@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .body{
+            height:vh;
+        }
+        .btn{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh; */
+            
+        }
+
+        .btn1{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+           
+        }
+
+        #btn5,#btn1,#btn2,#btn3,#btn4,#btn6{
+            height: 20px;
+            width: 120px;
+            margin:3px;
+            background-color: chartreuse;
+        }
+        h1,h2,label{
+            border: 2px solid black;
+            font-weight: 800;
+            background-color: chocolate;
+        }
+        #demo3,#demo4,#demo{
+            background-color: chartreuse;
+
+        }
+        .btn2{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+    </style>
+</head>
+<body>
+  <div class="body">
+    
+                <div id="disable" class="btn">
+                    <h1>CLICK START BUTTON TO PLAY AND FIRST 50 POINTS WILL WIN THE MATCH </h1>
+                    <h2>After selecting one button kindly wait for one second to guess next choice</h2>
+                    <button id="btn5">Click to start</button> 
+                    <button id="btn1">Stone</button>
+                    <button id="btn2">Paper</button>
+                    <button id="btn3">Pencil</button>
+                    <button id="btn4">Scissor</button>
+                </div>
+                <div class="btn1">
+                        <button id="btn6" onclick="location.reload();">Restart Button</button>
+                </div>
+                <div class="btn2">
+                    <p id="demo"></p>
+                    <label>Computer Points</label>
+                    <p id="demo1">0</p>
+                    <label>Player Points</label>
+                    <p id="demo2">0</p>
+                    <p id="demo3"></p>
+                    <p id="demo4"></p>     
+                </div>
+                <canvas id="canvas" width="700" height="350"></canvas>
+                <canvas id="canvas1" width="700" height="350"></canvas>
+            
+</div>  
+    <script>
+        button1=document.getElementById("btn1");
+        button2=document.getElementById("btn2");
+        button3=document.getElementById("btn3");
+        button4=document.getElementById("btn4");
+        button5=document.getElementById("btn5");
+        let canvas=document.getElementById("canvas");
+        let ctx=canvas.getContext("2d");
+        let canvas1=document.getElementById("canvas1");
+        let ctx1=canvas1.getContext("2d");
+        let youpoint=0;
+        let point=0;
+        
+        button5.onclick=handler5;
+        
+         function handler5(){
+         randomArray=["Stone","Paper","Pencil","Scissor"];
+        randomOutput=randomArray[Math.floor(Math.random()*randomArray.length)];
+        console.log(randomOutput);
+         randomPaper=randomArray[1];
+        // console.log(randomPaper);
+        // ctx.strokeRect(0,0,700,350);
+        // ctx1.strokeRect(0,0,700,350);
+          }
+            
+       
+        button1.onclick=handler;
+        
+
+        function handler(){
+            play();
+            if(button1.innerText==randomOutput){
+                document.getElementById("demo").innerHTML="Computer thrown Stone and You also thrown Stone so no points to both of you";
+                
+                // stone();
+                stone1();
+                stone();
+                   
+            }
+            else if(button1.innerText!==randomOutput && randomOutput==randomArray[1]){
+                // console.log(randomOutput);
+                // if(randomOutput==randomArray[1]){
+                document.getElementById("demo").innerHTML="Computer thrown Paper and You have thrown Stone so 10 points to  computer";
+                
+                pointscomputer(10);
+                // paper();
+                stone1();
+                paper();
+                
+                // }
+            }
+            else if(button1.innerText!==randomOutput &&  randomOutput==randomArray[2]){
+                // console.log(randomOutput);
+                // if(randomOutput==randomArray[2]){
+                document.getElementById("demo").innerHTML="Computer thrown Pencil and You have thrown Stone so 10 points to  you";
+                pointsyou(10);
+                // pencil();
+                stone1();
+                pencil();
+               
+                // } 
+            }
+            else if(button1.innerText!==randomOutput && randomOutput==randomArray[3] ){
+                // console.log(randomOutput);
+                // if(randomOutput==randomArray[3])
+                document.getElementById("demo").innerHTML="Computer thrown Scissor and You have thrown Stone so 10 points to  you";
+                pointsyou(10);
+                // scissor();
+                stone1();
+                scissor();
+                
+            // }
+            }
+        }
+
+        button2.onclick=handler2;
+       
+
+        function handler2(){
+            play();
+            if(button2.innerText==randomOutput){
+                document.getElementById("demo").innerHTML="Computer thrown Paper and You also thrown Paper so no points to both of you";
+                // paper();
+                paper1();
+                paper();
+                
+            }
+            else if(button2.innerText!==randomOutput && randomOutput==randomArray[0]){
+                document.getElementById("demo").innerHTML="Computer thrown Stone and You have thrown Paper so 10 points to you";
+                pointsyou(10);
+                // stone();
+                paper1();
+                stone();
+                
+            }
+            else if(button2.innerText!==randomOutput && randomOutput==randomArray[2]){
+                document.getElementById("demo").innerHTML="Computer thrown Pencil and You have thrown Paper so 10 points to computer";
+                pointscomputer(10);
+                // pencil();
+                paper1();
+                pencil();
+                
+            }
+            else if(button2.innerText!==randomOutput && randomOutput==randomArray[3]){
+                document.getElementById("demo").innerHTML="Computer thrown Scissor and You have thrown Paper so 10 points to computer";
+                pointscomputer(10);
+                // scissor();
+                
+                paper1();
+                scissor();
+                
+            }
+        }
+
+        button3.onclick=handler3;
+        play();
+
+        function handler3(){
+            play();
+            if(button3.innerText==randomOutput){
+                document.getElementById("demo").innerHTML="Computer thrown Pencil and You also thrown Pencil so no points to both of you";
+                //  pencil();
+                 pencil1();
+                 pencil();
+                //  ctx.clearRect(0,0,canvas.width,canvas.height);
+                // ctx1.clearRect(0,0,canvas.width,canvas.height);
+            }
+            else if(button2.innerText!==randomOutput && randomOutput==randomArray[0]){
+                document.getElementById("demo").innerHTML="Computer thrown Stone and You have thrown Pencil so 10 points to computer";
+                pointscomputer(10);
+                // stone();
+                pencil1();
+                stone();
+                // ctx.clearRect(0,0,canvas.width,canvas.height);
+                // ctx1.clearRect(0,0,canvas.width,canvas.height);
+            }
+            else if(button2.innerText!==randomOutput && randomOutput==randomArray[1]){
+                document.getElementById("demo").innerHTML="Computer thrown Paper and You have thrown Pencil so 10 points to You";
+                pointsyou(10)
+                // paper();
+                pencil1();
+                paper();
+                // ctx.clearRect(0,0,canvas.width,canvas.height);
+                // ctx1.clearRect(0,0,canvas.width,canvas.height);
+            }
+            else if(button2.innerText!==randomOutput && randomOutput==randomArray[3]){
+                document.getElementById("demo").innerHTML="Computer thrown Scissor and You have thrown Pencil so 10 points to computer";
+                pointscomputer(10);
+                // scissor();
+                pencil1();
+                scissor();
+                // ctx.clearRect(0,0,canvas.width,canvas.height);
+                // ctx1.clearRect(0,0,canvas.width,canvas.height);
+            }   
+        }
+
+        button4.onclick=handler4;
+       
+
+        function handler4(){
+             play();
+            if(button4.innerText==randomOutput){
+                document.getElementById("demo").innerHTML="Computer thrown Scissor and You also thrown Scissor so no points to both of you";
+                // scissor();
+                scissor1();
+                scissor();
+                // ctx.clearRect(0,0,canvas.width,canvas.height);
+                // ctx1.clearRect(0,0,canvas.width,canvas.height);
+            }
+            else if(button4.innerText!==randomOutput && randomOutput==randomArray[0]){
+                document.getElementById("demo").innerHTML="Computer thrown Stone and You have thrown Scissor so 10 points to computer";
+                pointscomputer(10);
+                // stone();
+                scissor1();
+                stone();
+                // ctx.clearRect(0,0,canvas.width,canvas.height);
+                // ctx1.clearRect(0,0,canvas.width,canvas.height);
+            }
+            else if(button4.innerText!==randomOutput && randomOutput==randomArray[1]){
+                document.getElementById("demo").innerHTML="Computer thrown Paper and You have thrown Scissor so 10 points to you";
+                pointsyou(10)
+                // paper();
+                scissor1();
+                paper();
+                // ctx.clearRect(0,0,canvas.width,canvas.height);
+                // ctx1.clearRect(0,0,canvas.width,canvas.height);
+            }
+            else if(button4.innerText!==randomOutput && randomOutput==randomArray[2]){
+                document.getElementById("demo").innerHTML="Computer thrown Pencil and You have thrown Scissor so 10 points to you";
+                pointsyou(10)
+                // pencil();
+                scissor1();
+                pencil();
+                // ctx.clearRect(0,0,canvas.width,canvas.height);
+                // ctx1.clearRect(0,0,canvas.width,canvas.height);
+            }
+
+        }
+
+        function pointscomputer(Addto=0){
+            point+= Addto;
+                document.getElementById("demo1").innerHTML=point;
+                finalwinner();
+                setTimeout ("handler5()",1000);
+            
+        }
+
+        function pointsyou(toadd=0){
+                youpoint+= toadd;
+                document.getElementById("demo2").innerHTML=youpoint;
+                finalwinner();
+                setTimeout ("handler5()",1000);
+      
+        }
+
+        function finalwinner(){
+
+            if(point==50){
+                document.getElementById("demo3").innerHTML="Score of Computer is 50 so Computer Wins to play again press Restart Button  ";
+                document.getElementById("disable").style.pointerEvents = 'none';
+                
+            }
+
+            else if(youpoint==50){
+                document.getElementById("demo4").innerHTML="Score of Player is 50 so Player Wins to play again press Restart Button";
+                document.getElementById("disable").style.pointerEvents = 'none';
+            }
+        }
+
+        function stone(){
+
+           let stoneimage=new Image();
+            stoneimage.src="stone.jpg";
+            stoneimage.onload=function(){
+                // console.log("Abhi");
+                let x=0;
+                window.requestAnimationFrame(function loop(){
+                    x+=1;
+                    ctx.clearRect(0,0,canvas.width,canvas.height);
+                    ctx.drawImage(stoneimage,x,10);
+                    window.requestAnimationFrame(loop);
+                });
+                 
+            }
+        }
+
+        function pencil(){
+           let pencilimage=new Image ();
+            pencilimage.src="pencil.png";
+            pencilimage.onload=function(){
+                let x=0;
+                window.requestAnimationFrame(function loop(){
+                    x+=1;
+                    ctx.clearRect(0,0,canvas.width,canvas.height);
+                     ctx.drawImage(pencilimage,x,0);
+                     window.requestAnimationFrame(loop);
+                });
+            }
+        }
+
+        function paper(){
+           let paperimage=new Image();
+            paperimage.src="paper.gif";
+            paperimage.onload=function(){
+                let x=0;
+                window.requestAnimationFrame(function loop(){
+                    x+=1;
+                    ctx.clearRect(0,0,canvas.width,canvas.height);
+                    ctx.drawImage(paperimage,x,20);
+                    window.requestAnimationFrame(loop);  
+                });
+                
+            }
+        }
+
+        function scissor(){
+           let scissorimage=new Image();
+            scissorimage.src="scissor.png";
+            scissorimage.onload=function(){
+                let x=0;
+                window.requestAnimationFrame(function loop(){
+                    x+=1;
+                    ctx.clearRect(0,0,canvas.width,canvas.height);
+                    ctx.drawImage(scissorimage,x,20);
+                    window.requestAnimationFrame(loop);
+                 });
+            }
+         }
+
+        function stone1(){
+
+           let stoneimage1=new Image();
+            stoneimage1.src="stone.jpg";
+            stoneimage1.onload=function(){
+                let x=400;
+                window.requestAnimationFrame(function loop5(){
+                    x-=1;
+                    ctx1.clearRect(0,0,canvas.width,canvas.height);
+                    ctx1.drawImage(stoneimage1,x,10);
+                    // ctx.clearRect(0,0,canvas.width,canvas.height);
+                    
+                    window.requestAnimationFrame(loop5);
+                    
+                });
+                // console.log("Abhi");
+                
+            }
+        }
+
+        function pencil1(){
+           let pencilimage1=new Image ();
+            pencilimage1.src="pencil.png";
+            pencilimage1.onload=function(){
+                let x=400;
+                window.requestAnimationFrame(function loop6(){
+                    x-=1;
+                    ctx1.clearRect(0,0,canvas.width,canvas.height);
+                    ctx1.drawImage(pencilimage1,x,0);
+                    // ctx.clearRect(0,0,canvas.width,canvas.height);
+                    window.requestAnimationFrame(loop6);
+                    
+                });
+                
+            }
+        }
+
+        function paper1(){
+           let paperimage1=new Image();
+            paperimage1.src="paper.gif";
+            paperimage1.onload=function(){
+                let x=400;
+                window.requestAnimationFrame(function loop7(){
+                    x-=1;
+                    ctx1.clearRect(0,0,canvas.width,canvas.height);
+                    ctx1.drawImage(paperimage1,x,20);
+                    // ctx.clearRect(0,0,canvas.width,canvas.height);
+                    window.requestAnimationFrame(loop7);
+                   
+            });
+        }
+    }
+
+        function scissor1(){
+           let scissorimage1=new Image();
+            scissorimage1.src="scissor.png";
+            scissorimage1.onload=function(){
+                let x=400;
+                window.requestAnimationFrame(function loop8(){
+                    x-=1;
+                    ctx1.clearRect(0,0,canvas.width,canvas.height);
+                    ctx1.drawImage(scissorimage1,x,20);
+                    // ctx.clearRect(0,0,canvas.width,canvas.height);
+                    window.requestAnimationFrame(loop8);
+                   
+            });
+        }
+    } 
+    
+    function play(){
+        let audio= new Audio("audio.mp3");
+        audio.play();
+    }
+
+        
+    </script>
+</body>
+</html>
